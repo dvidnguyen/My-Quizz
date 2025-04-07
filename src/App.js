@@ -8,10 +8,10 @@ function App() {
   <div className='app-container'>
     <Header/>
     <div>
-      test link 
+      {/* test link  */}
       <div>
           <button>
-            <Link to="/users" >go to user page</Link>
+            <Link to="/users" > go to user page</Link>
           </button>
           <button>   
           <Link to="/admins" >go to admin page</Link>
