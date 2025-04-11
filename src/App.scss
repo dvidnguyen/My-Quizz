@@ -4,11 +4,36 @@ body{
 }
 .app-container{
     .header-container{
-        .navbar-nav{
+
+        .navbar{
+            .btn-login{
+                border-radius: 5px;
+                margin: 10px;
+                border:solid 2px rgb(41, 37, 37);
+                height: 40px;
+                width: 80px;
+            }
+            .btn-signup{
+                border-radius: 5px;
+                margin: 10px;
+                border:solid 2px rgb(41, 37, 37);
+                height: 40px;
+                width: 80px;
+                background-color: rgb(35, 30, 30);
+                color: white;
+                &.hover{
+                background-color: rgb(0, 0, 0);
+
+
+                }
+            }
+
+            z-index: 1;
+            background-color: rgba(0,0,0,0) !important;
             .nav-link{
                 &.active{
-                    color:rgb(61, 134, 183);
-
+                    color:rgb(17, 38, 52);
+                    opacity: 1;
                 }
             }
         }
@@ -16,4 +41,48 @@ body{
         //     color:green;
         // }
     }
+    .homepage-container{
+        .homepage-content{
+            position: relative;
+            padding: 50px 20px 0;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .title-1{
+                font-size: 45px;    
+                font-weight: 600;            
+            }
+            .title-2{
+                font-size: 20px;
+            }
+            .title-3{
+                width: 300px;
+                // margin-left: 100px;
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: 600;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                border-radius: 5px;
+                border: none;
+                color: #ffffff;
+                background: linear-gradient(135deg, #41434b, #3b3746);
+                box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+                transition: all 0.3s ease;
+                &.hover{
+                    transform: translateY(-2px);
+                    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(102, 92, 92, 0.08);
+                }
+            }
+        }
+    }
+}
+video {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    top: 60px;
 }
