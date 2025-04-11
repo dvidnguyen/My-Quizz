@@ -2,3 +2,18 @@ body{
     padding: 0;
     border: 0;
 }
+.app-container{
+    .header-container{
+        .navbar-nav{
+            .nav-link{
+                &.active{
+                    color:rgb(61, 134, 183);
+
+                }
+            }
+        }
+        // .navbar-nav .nav-link.active{
+        //     color:green;
+        // }
+    }
+}

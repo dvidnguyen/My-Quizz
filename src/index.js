@@ -7,16 +7,21 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import User from './Component/User/User';
 import Admin from './Component/Admin/Admin';
+import HomePage from './Component/Home/HomePage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
     {/* <App /> */}
     <Routes>
-        <Route index path='/' element={<App />} />
+        <Route  path='/' element={<App />}    
+        >
+        <Route index element={<HomePage />} />
         <Route path="users" element={<User />} />
         <Route path="admins" element={<Admin />} />
-      </Routes>
+          </Route> 
+        {/* </Route> */}
+    </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );
