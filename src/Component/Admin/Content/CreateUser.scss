@@ -1,0 +1,25 @@
+.from-upload{
+    display: flex;
+    align-items: center;
+    color: white;
+    background: linear-gradient(90deg, rgba(12, 91, 14, 0.5) 00%, rgb(92, 190, 95) 100%, rgba(76,175,80,0.5) 100%);
+    width: fit-content;
+    padding: 3px 10px;
+    border-radius: 5px;
+    background-color: transparent();
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+.img-preview{
+    text-align: center;
+    border: 2px dashed rgb(122, 99, 99);
+    height: 30vh;
+    border-radius: 4px;
+    font-size: 30px;
+}
