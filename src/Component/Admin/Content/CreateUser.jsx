@@ -7,8 +7,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import "../Content/CreateUser.scss";
-import axios from "axios";
-// Trong CreateUser.jsx - CHỈ import toast, KHÔNG import ToastContainer ở đây
+import { postCreateNewUser } from "../../../services/apiService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -55,22 +54,13 @@ const CreateUser = (props) => {
       return;
     }
 
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", password);
-    data.append("username", username);
-    data.append("role", role);
-    data.append("userImage", image);
-    let res = await axios.post(
-      "http://localhost:8081/api/v1/participant",
-      data
-    );
-    console.log(">>>", res.data);
-    if (res.data && res.data.EC === 0) {
-      toast.success(res.data.EM);
+    let data = await postCreateNewUser(email, password, username, role, image);
+    console.log(">>>", data);
+    if (data && data.EC === 0) {
+      toast.success(data.EM);
     }
-    if (res.data && res.data.EC !== 0) {
-      toast.error(res.data.EM);
+    if (data && data.EC !== 0) {
+      toast.error(data.EM);
     }
   };
   return (
@@ -107,7 +97,6 @@ const CreateUser = (props) => {
                 />
               </Form.Group>
             </Row>
-
             <div className="mb-3">
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>UserName </Form.Label>

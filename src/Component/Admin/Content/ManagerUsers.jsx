@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CreateUser from "./CreateUser";
 import "./ManagerUser.scss";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import TableUser from "./TableUser";
 
 const ManagerUsers = () => {
   const [showCreateUser, setShowCreateUser] = useState(false);
@@ -11,7 +12,7 @@ const ManagerUsers = () => {
       <div className="users-content ">
         <div className="btn-add-new">
           <button
-            class="btn btn-primary "
+            className="btn btn-primary "
             onClick={() => {
               setShowCreateUser(true);
             }}
@@ -20,7 +21,7 @@ const ManagerUsers = () => {
           </button>
         </div>
         <div className="table-user-container">
-          Table User
+          <TableUser/>
           <CreateUser show={showCreateUser} setShow={setShowCreateUser} />
         </div>
       </div>
