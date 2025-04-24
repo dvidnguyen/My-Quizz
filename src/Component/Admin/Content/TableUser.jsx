@@ -1,35 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { getAllUser } from "../../../services/apiService";
+
 const TableUser = (props) => {
-  const [listUser, setListUser] = useState([
-    // {
-    //   id: 13,
-    //   username: "Eric",
-    //   email: "ABsCS@gmail.com",
-    //   role: "User",
-    // },
-    // {
-    //   id: 12,
-    //   username: "casc",
-    //   email: "ABCS@gmail.com",
-    //   role: "User",
-    // },
-    // {
-    //   id: 10,
-    //   username: "hasakhi",
-    //   email: "kira@gmail.com",
-    //   role: "User",
-    // },
-  ]);
-  useEffect(() => {
-    fetchListUser();
-  }, []);
-  const fetchListUser = async () => {
-    let res = await getAllUser();
-    if (res.data.EC === 0) {
-      setListUser(res.data.DT);
-    }
-  };
+  const listUser = props.listUser;
   return (
     <>
       <table className="table table-hover table-striped table-sm">
@@ -52,8 +23,13 @@ const TableUser = (props) => {
                   <td>{item.email}</td>
                   <td>{item.role}</td>
                   <td>
-                    <button className="btn btn-outline-primary">View</button>
-                    <button className="btn btn-outline-success mx-2">Update</button>
+                    <button className="btn btn-outline-primary"
+                    onClick={()=> props.handleViewUser(item)}
+                    >View</button>
+                    <button 
+                    className="btn btn-outline-success mx-2"
+                    onClick={()=> props.handleClickBtnUpdate(item)}
+                    >Update</button>
                     <button className="btn btn-outline-danger">Delete</button>
 
                   </td>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -7,14 +7,14 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import "../Content/CreateUser.scss";
-import { postCreateNewUser } from "../../../services/apiService";
+import { putUser } from "../../../services/apiService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const CreateUser = (props) => {
+import _, { update } from "lodash";
+const UpdateUser = (props) => {
   const { show, setShow, fetchListUser } = props;
   const handleClose = () => {
     setShow(false);
-    console.log("check show");
     setEmail("");
     setImage("");
     setPassword("");
@@ -30,7 +30,17 @@ const CreateUser = (props) => {
   const [role, setRole] = useState("User");
   const [image, setImage] = useState("");
   const [previewimg, setPreviewimg] = useState(""); // Thay đổi từ "false" thành chuỗi rỗng
-
+  useEffect(() => {
+    if (!_.isEmpty(props.dataUpdate)) {
+      setEmail(props.dataUpdate.email);
+      setUsername(props.dataUpdate.username);
+      setRole(props.dataUpdate.role);
+      setPassword(props.dataUpdate.password);
+      setPreviewimg(`data:image/jpeg;base64,${props.dataUpdate.image}`);
+      props.resetUpdateData()
+    }
+    console.log("Effect Updata ");
+  }, [props.dataUpdate]);
   const handleUpload = (event) => {
     if (event.target && event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -46,35 +56,18 @@ const CreateUser = (props) => {
       );
   };
   const handleSubmitCreateUser = async () => {
-    try {
-      const isValidEmail = validateEmail(email);
-      if (!isValidEmail) {
-        toast.error("Email không hợp lệ");
-        return;
-      }
-
-      if (!password || !username) {
-        toast.error("Vui lòng điền đầy đủ thông tin");
-        return;
-      }
-
-      let data = await postCreateNewUser(
-        email,
-        password,
-        username,
-        role,
-        image
-      );
-      if (data && data.data.EC === 0) {
-        toast.success(data.EM);
-        await fetchListUser();
-        handleClose();
-      } else {
-        toast.error(data.EM || "Có lỗi xảy ra khi tạo người dùng");
-      }
-    } catch (error) {
-      console.error("Error creating user:", error);
-      toast.error("Có lỗi xảy ra khi tạo người dùng");
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Email không hợp lệ");
+      return;
+    }
+    let data = await putUser(props.dataUpdate.id, username, role, image);
+    if (props.dataUpdate.id != "") {
+      toast.success(data.data.EM);
+      await props.fetchListUser();
+      handleClose();
+    } else {
+      toast.error(data.EM || "Có lỗi xảy ra khi tạo người dùng");
     }
   };
   return (
@@ -85,7 +78,7 @@ const CreateUser = (props) => {
 
       <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title>Add New User </Modal.Title>
+          <Modal.Title className="display-3">Update User </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e) => e.preventDefault()}>
@@ -97,7 +90,7 @@ const CreateUser = (props) => {
                   placeholder="Enter email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  required
+                  disabled
                 />
               </Form.Group>
 
@@ -108,7 +101,7 @@ const CreateUser = (props) => {
                   placeholder="Password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  required
+                  disabled
                 />
               </Form.Group>
             </Row>
@@ -116,7 +109,7 @@ const CreateUser = (props) => {
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>UserName </Form.Label>
                 <Form.Control
-                  placeholder="Dvidnguyen"
+                  placeholder="User Name"
                   value={username}
                   onChange={(event) => setUsername(event.target.value)}
                 />
@@ -147,10 +140,10 @@ const CreateUser = (props) => {
               />
             </div>
             <div className="col-md-12 img-preview">
-              {previewimg ? (
+              {previewimg !== "" ? (
                 <img
                   src={previewimg}
-                  alt="Preview"
+                  alt="None"
                   style={{ maxWidth: "100%", maxHeight: "200px" }}
                 />
               ) : (
@@ -187,5 +180,4 @@ const CreateUser = (props) => {
     </>
   );
 };
-
-export default CreateUser;
+export default UpdateUser;
