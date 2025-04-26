@@ -30,7 +30,11 @@ const TableUser = (props) => {
                     className="btn btn-outline-success mx-2"
                     onClick={()=> props.handleClickBtnUpdate(item)}
                     >Update</button>
-                    <button className="btn btn-outline-danger">Delete</button>
+                    <button className="btn btn-outline-danger"
+                    onClick={()=> props.handleShowConfirmDelte(item)}
+                    
+                    >
+                      Delete</button>
 
                   </td>
                 </tr>

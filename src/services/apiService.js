@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from '../untils/axiosCustomize'
 const postCreateNewUser = (email,password,username,role,image) => {
     //submit data 

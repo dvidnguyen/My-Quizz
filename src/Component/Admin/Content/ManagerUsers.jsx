@@ -6,14 +6,18 @@ import TableUser from "./TableUser";
 import { getAllUser } from "../../../services/apiService";
 import UpdateUser from "./UpdateUser";
 import ViewUser from "./ViewUser";
+import DeleteUser from "./DeleteUser";
+import { data } from "react-router-dom";
 
 const ManagerUsers = () => {
   const [showCreateUser, setShowCreateUser] = useState(false);
   const [showUpdateUser, setShowUpdateUser] = useState(false);
   const [showViewUser, setShowViewUser] = useState(false);
+  const [showDeleteUser, setShowDeleteUser] = useState(false);
 
   const [dataUpdate, setDataUpdate] = useState({});
   const [listUser, setListUser] = useState([]);
+  const [dataDelete, setDataDelete] = useState({});
   useEffect(() => {
     fetchListUser();
   }, []);
@@ -27,16 +31,21 @@ const ManagerUsers = () => {
       console.error("Error fetching users:", error);
     }
   };
-  const handleViewUser = (itemUser) =>{
+  const handleViewUser = (itemUser) => {
     setShowViewUser(true);
-    
-  }
+  };
   const handleClickBtnUpdate = (itemUser) => {
     setShowUpdateUser(true);
     setDataUpdate(itemUser);
   };
-  const resetUpdateData=()=>{
+  const resetUpdateData = () => {
     setDataUpdate({});
+  };
+  const handleShowConfirmDelte =(itemUser)=>{
+    console.log(itemUser)
+    setDataDelete(itemUser);
+    setShowDeleteUser(true);
+
   }
   return (
     <div className="manageruser-container">
@@ -54,8 +63,8 @@ const ManagerUsers = () => {
           <TableUser
             listUser={listUser}
             handleClickBtnUpdate={handleClickBtnUpdate}
-            handleViewUser ={handleViewUser}
-            
+            handleViewUser={handleViewUser}
+            handleShowConfirmDelte={handleShowConfirmDelte}
           />
           <CreateUser
             show={showCreateUser}
@@ -69,9 +78,11 @@ const ManagerUsers = () => {
             dataUpdate={dataUpdate}
             resetUpdateData={resetUpdateData}
           />
-          <ViewUser
-              show={showViewUser}
-              setShow={setShowViewUser}
+          <ViewUser show={showViewUser} setShow={setShowViewUser} />
+          <DeleteUser  
+            show={showDeleteUser}
+            setShow={setShowDeleteUser}
+            dataDelete={dataDelete}
           />
         </div>
       </div>

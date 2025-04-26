@@ -37,7 +37,7 @@ const UpdateUser = (props) => {
       setRole(props.dataUpdate.role);
       setPassword(props.dataUpdate.password);
       setPreviewimg(`data:image/jpeg;base64,${props.dataUpdate.image}`);
-      props.resetUpdateData()
+      props.resetUpdateData();
     }
     console.log("Effect Updata ");
   }, [props.dataUpdate]);
@@ -67,7 +67,7 @@ const UpdateUser = (props) => {
       await props.fetchListUser();
       handleClose();
     } else {
-      toast.error(data.EM || "Có lỗi xảy ra khi tạo người dùng");
+      toast.error(data.EM || "Có lỗi xảy ra khi tạo người dùng.");
     }
   };
   return (
