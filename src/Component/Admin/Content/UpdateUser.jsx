@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import _, { update } from "lodash";
 const UpdateUser = (props) => {
-  const { show, setShow, fetchListUser } = props;
+  const { show, setShow } = props;
   const handleClose = () => {
     setShow(false);
     setEmail("");
@@ -20,6 +20,7 @@ const UpdateUser = (props) => {
     setPassword("");
     setRole("");
     setUsername("");
+    props.resetUpdateData();
   };
   const handleShow = () => {
     setShow(true);
@@ -31,15 +32,14 @@ const UpdateUser = (props) => {
   const [image, setImage] = useState("");
   const [previewimg, setPreviewimg] = useState(""); // Thay đổi từ "false" thành chuỗi rỗng
   useEffect(() => {
+    console.log("Props.dataUpdate form ManagerUser", props.dataUpdate);
     if (!_.isEmpty(props.dataUpdate)) {
       setEmail(props.dataUpdate.email);
       setUsername(props.dataUpdate.username);
       setRole(props.dataUpdate.role);
       setPassword(props.dataUpdate.password);
       setPreviewimg(`data:image/jpeg;base64,${props.dataUpdate.image}`);
-      props.resetUpdateData();
     }
-    console.log("Effect Updata ");
   }, [props.dataUpdate]);
   const handleUpload = (event) => {
     if (event.target && event.target.files && event.target.files[0]) {
@@ -56,15 +56,18 @@ const UpdateUser = (props) => {
       );
   };
   const handleSubmitCreateUser = async () => {
+    console.log(props);
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
       toast.error("Email không hợp lệ");
       return;
     }
+    console.log("Test form Update", props);
     let data = await putUser(props.dataUpdate.id, username, role, image);
-    if (props.dataUpdate.id != "") {
+    if (props.dataUpdate.id) {
       toast.success(data.data.EM);
-      await props.fetchListUser();
+      // props.setCurrentPage(1);
+      await props.fetchListUserWithPaging(props.currentPage);
       handleClose();
     } else {
       toast.error(data.EM || "Có lỗi xảy ra khi tạo người dùng.");

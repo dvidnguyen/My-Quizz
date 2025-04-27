@@ -1,0 +1,167 @@
+// Variables
+$primary-color: #d2b48c; // Tông màu be
+$secondary-color: #8c7a6b; // Màu be đậm hơn
+$background-color: #f9f5f0; // Màu sữa nhạt làm nền
+$text-color: #5d4b3e; // Màu chữ
+$light-color: #fff4e6; // Màu sữa nhạt
+$input-bg: #fffcf7; // Màu sữa cho input
+$shadow-color: rgba(160, 140, 120, 0.15);
+$border-radius: 8px;
+$transition-speed: 0.3s;
+
+// Main Container
+.Container-login {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: $background-color;
+  font-family: 'Roboto', Arial, sans-serif;
+  
+  // Header styles
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    
+    p {
+      margin-bottom: 2px;
+      color: $secondary-color;
+      font-weight: 700;
+    }
+    
+    button {
+      background: transparent;
+      border: 2px solid $primary-color;
+      color: $secondary-color;
+      padding: 8px 20px;
+      border-radius: $border-radius;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all $transition-speed ease;
+      margin: 0;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $light-color;
+      }
+    }
+  }
+  
+  // Main content area
+  .body-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      color: $primary-color;
+      margin-bottom: 10px;
+    }
+    
+    .welcome {
+      font-size: 24px;
+      text-align: center;
+      color: $text-color;
+      margin-bottom: 30px;
+    }
+    
+    .form-content {
+      background-color: $light-color;
+      padding: 30px;
+      border-radius: $border-radius;
+      box-shadow: 0px 5px 15px $shadow-color;
+      
+      .form-group {
+        margin-bottom: 20px;
+        
+        label {
+          display: block;
+          margin-bottom: 8px;
+          color: $secondary-color;
+          font-weight: 500;
+        }
+        
+        input {
+          width: 100%;
+          padding: 12px 15px;
+          border: 1px solid #e6d7c3;
+          border-radius: $border-radius;
+          font-size: 16px;
+          background-color: $input-bg;
+          transition: border $transition-speed ease;
+          
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+          }
+        }
+      }
+      
+      span {
+        display: block;
+        text-align: right;
+        color: $secondary-color;
+        cursor: pointer;
+        margin-bottom: 20px;
+        font-size: 14px;
+        
+        &:hover {
+          text-decoration: underline;
+          color: darken($secondary-color, 10%);
+        }
+      }
+      
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: $primary-color;
+        color: $light-color;
+        border: none;
+        border-radius: $border-radius;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color $transition-speed ease;
+        
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
+
+// Utility classes
+.col-4 {
+  width: 100%;
+  max-width: 400px;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .col-4 {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .Container-login .header {
+    flex-direction: column;
+    align-items: flex-start;
+    
+    button {
+      margin-top: 10px;
+    }
+  }
+}

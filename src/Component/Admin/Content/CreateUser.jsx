@@ -67,7 +67,8 @@ const CreateUser = (props) => {
       );
       if (data && data.data.EC === 0) {
         toast.success(data.EM);
-        await fetchListUser();
+        props.setCurrentPage(1);
+        await props.fetchListUserWithPaging(1);
         handleClose();
       } else {
         toast.error(data.EM || "Có lỗi xảy ra khi tạo người dùng");
