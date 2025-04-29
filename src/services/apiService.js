@@ -13,6 +13,18 @@ const postCreateNewUser = (email,password,username,role,image) => {
     );
     
 }
+const postLogin =(email,password)=>{
+  return  axios.post(
+    "api/v1/login",
+    {email, password}
+  );
+};
+const postRegister =(email,username,password)=>{
+  return  axios.post(
+    "api/v1/register",
+    {email,username, password}
+  );
+};
 const getAllUser =()=>{
   return  axios.get(
     "api/v1/participant/all",
@@ -43,4 +55,4 @@ const putUser = (id,username,role,image) => {
   
 }
 
-export  {postCreateNewUser,deleteUser,getAllUser,putUser,getUserWithPaging}
+export  {postCreateNewUser,deleteUser,getAllUser,putUser,getUserWithPaging,postLogin,postRegister}
