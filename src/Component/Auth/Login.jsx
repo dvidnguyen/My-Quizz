@@ -4,30 +4,38 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/apiService";
 import { useDispatch } from "react-redux";
-// import { type } from "@testing-library/user-event/dist/type";
+import { doLogin } from "../../redux/action/userAction";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const handleSubmitLogin = async () => {
+    setLoading(true);
     let data = await postLogin(email, password);
-    console.log(data.data.EM)
-    if ( data.data.EC === 0) {
-      dispatch({
-        type: "FECTH_USER_LOGIN_SUCCESS",
-        payload: data.data
-      })
+    if (data.data.EC === 0) {
+      dispatch(doLogin(data.data));
       toast.success(data.data.EM);
+      setLoading(false);
     } else {
       toast.error(data.data.EM || "Error");
+      setLoading(false);
     }
   };
   return (
     <div className="Container-login">
       <div className="header">
         <p>Don't have an account yet</p>
-        <button onClick={()=>{navigate('/register')}}>Sign Up</button>
+        <button
+          onClick={() => {
+            setLoading(true);
+            navigate("/register");
+          }}
+        >
+          Sign Up
+        </button>
       </div>
       <div className="body-content">
         <div className="title col-4 mx-auto ">Login</div>
@@ -53,27 +61,28 @@ const Login = () => {
           </div>
           <span>Fogot password?</span>
           <div>
-            <button onClick={() => handleSubmitLogin()}>
+            <button onClick={() => handleSubmitLogin()} disabled={loading}>
               Login to Dvid Nguyen
+              {loading && <CgSpinnerTwoAlt className="loaderIcon" />}
             </button>
             <span className="Goto-homepage" onClick={() => navigate("/")}>
               Go to hompage
             </span>
           </div>
         </div>
-        
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </div>
   );

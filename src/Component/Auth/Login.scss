@@ -150,11 +150,30 @@ $transition-speed: 0.3s;
         font-weight: 600;
         cursor: pointer;
         transition: background-color $transition-speed ease;
-        
+        &:disabled{
+          background:#dddddd;
+          color: #afafaf;
+          cursor: no-drop;
+        }
         &:hover {
           background-color: darken($primary-color, 10%);
         }
       }
+      .loaderIcon {
+        margin-left: 7px;
+        top: 2px;
+        animation: spin 1s infinite linear;
+        font-size: 20px;
+    }
+    
+    @keyframes spin {
+        from {
+            transform: scale(1) rotate(0deg);
+        }
+        to {
+            transform: scale(1) rotate(360deg);
+        }
+    }
       .Goto-homepage{
         font-size: 16px;
         font-weight: 600;

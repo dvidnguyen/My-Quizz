@@ -1,3 +1,4 @@
+import { delay } from 'lodash';
 import axios from '../untils/axiosCustomize'
 const postCreateNewUser = (email,password,username,role,image) => {
     //submit data 
@@ -16,7 +17,9 @@ const postCreateNewUser = (email,password,username,role,image) => {
 const postLogin =(email,password)=>{
   return  axios.post(
     "api/v1/login",
-    {email, password}
+    {email,
+    password,
+     delay: 1600}
   );
 };
 const postRegister =(email,username,password)=>{
